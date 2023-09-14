@@ -4,7 +4,7 @@ Titulo: {{$name}}
 
 Descrição: {{$description}}
 
-Data limite: {{$data_limite}}
+
 
 Att,<br>
 {{ config('app.name') }}

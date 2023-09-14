@@ -25,7 +25,6 @@ class MensagemCadastro extends Mailable
     {
         $this->name = $tarefa->name;
         $this->description = $tarefa->description;
-        $this->data_limite = $tarefa->data_limite;
     }
 
     /**
