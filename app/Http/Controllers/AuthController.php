@@ -17,7 +17,7 @@ class AuthController extends Controller
         if($token){
            return response()->json(['token'=>$token]);
         }else{
-            return response()->json(['erro'=>'Usuário ou senha inválido!',403]);
+            return response()->json(['erro'=>'Usuário ou senha inválido!'],403);
         }
     }
     public function logout(){
@@ -44,9 +44,9 @@ class AuthController extends Controller
             ]
             ); 
             $this->logout();
-         return response()->json(['msg'=>'Senha alterada com sucesso, realize uma nova sessão!']); 
+         return response()->json(['msg'=>'Senha alterada com sucesso, realize uma nova sessão!'],200); 
         }else{
-            return response()->json(['msg'=>'Senha incorreta',400]);
+            return response()->json(['msg'=>'Senha incorreta'],400);
         }
       
    
