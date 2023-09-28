@@ -30,7 +30,7 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function(){
 
 Route::post('login','App\Http\Controllers\AuthController@login');
 Route::post('register','App\Http\Controllers\Auth\RegisterController@register');
-Route::get('tarefa/exportacao','App\Http\Controllers\TarefaController@exportacao');
+
 
 
 

@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use App\Models\Tarefa;
-use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class TarefasExport implements FromCollection
@@ -13,6 +12,6 @@ class TarefasExport implements FromCollection
     */
     public function collection()
     {
-       return auth()->user()->tarefas()->get();
+      return auth()->user()->tarefas()->get();
     }
 }
