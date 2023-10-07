@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Mail;
 use Exception;
+use PDF;
 
 class TarefaController extends Controller
 {
@@ -127,7 +128,7 @@ class TarefaController extends Controller
     }
     public function exportacao()
     {
-        return Excel::download(new TarefasExport, 'tarefas.xlsx'); //verificar depois do front feito
+        return Excel::download(new TarefasExport, 'lista_de_tarefas.csv'); //verificar depois do front feito
     }
 
     public function concluir($id)
@@ -155,4 +156,10 @@ class TarefaController extends Controller
         }
 
     }
+    public function exportar(){  
+        $tarefas = auth()->user()->tarefas()->get();    
+        $pdf = PDF::loadView('tarefa.pdf', ['tarefas'=>$tarefas]);
+        return $pdf->download('lista_tarefas.pdf');
+    }
+
 }

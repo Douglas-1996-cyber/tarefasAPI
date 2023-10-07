@@ -26,10 +26,12 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function(){
     Route::get('exportacao','App\Http\Controllers\TarefaController@exportacao');
     Route::patch('concluir/{id}','App\Http\Controllers\TarefaController@concluir');
     Route::patch('senha','App\Http\Controllers\AuthController@alterarSenha');
+    Route::get('exportar','App\Http\Controllers\TarefaController@exportar');
 });
 
 Route::post('login','App\Http\Controllers\AuthController@login');
 Route::post('register','App\Http\Controllers\Auth\RegisterController@register');
+
 
 
 
