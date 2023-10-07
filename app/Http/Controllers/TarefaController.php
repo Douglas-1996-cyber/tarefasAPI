@@ -128,7 +128,7 @@ class TarefaController extends Controller
     }
     public function exportacao()
     {
-        return Excel::download(new TarefasExport, 'lista_de_tarefas.csv'); //verificar depois do front feito
+        return Excel::download(new TarefasExport, 'lista_de_tarefas.csv'); 
     }
 
     public function concluir($id)
