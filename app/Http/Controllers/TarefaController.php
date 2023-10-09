@@ -100,7 +100,10 @@ class TarefaController extends Controller
     
     {
         
-
+        date_default_timezone_set('America/Sao_Paulo');
+        if ($request->data_limite < date("Y-m-d")) {
+            return response()->json(['msg' => 'Data menor que a atual.'], 400);
+        }
         $id_usuario = auth()->user()->id;
         $tarefa = $this->tarefa->where('user_id', $id_usuario)->find($id);
         if ($tarefa === null) {
@@ -187,7 +190,11 @@ class TarefaController extends Controller
             if ($tarefa->data_limite < date("Y-m-d") &&  $tarefa->late != 1) {
                 $tarefa->late = 1;
                 $tarefa->save();
+            }else if($tarefa->data_limite >= date("Y-m-d") &&  $tarefa->late == 1){
+                $tarefa->late = 0;
+                $tarefa->save();
             }
+
         }
     }
 
