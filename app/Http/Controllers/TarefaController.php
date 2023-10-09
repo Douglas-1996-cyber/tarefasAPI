@@ -25,13 +25,20 @@ class TarefaController extends Controller
      */
     public function index(Request $request)
     {
-        $id_usuario = auth()->user()->id;
+     
+       $id_usuario = auth()->user()->id;
+       $this->verificarAtraso($id_usuario);
+ 
         if ($request->search == null) {
             $tarefas = $this->tarefa->where('user_id', $id_usuario);
+      
         } else {
             $tarefas = $this->tarefa->where('name', 'like', '%' . $request->search . '%')->where('user_id', $id_usuario);
         }
+        $tarefa = $this->tarefa->where('user_id', $id_usuario)->get();
+       
         return response()->json($tarefas->paginate(10));
+ 
     }
 
     /**
@@ -90,7 +97,10 @@ class TarefaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    
     {
+        
+
         $id_usuario = auth()->user()->id;
         $tarefa = $this->tarefa->where('user_id', $id_usuario)->find($id);
         if ($tarefa === null) {
@@ -99,8 +109,13 @@ class TarefaController extends Controller
         if ($tarefa->status == 1) {
             return response()->json(['msg' => 'Impossivel realizar a atualização, tarefa concluida.'], 400);
         } else {
+            try{
             $tarefa->update($request->all());
             return response()->json(['msg' => 'Atualização realizada.'], 201);
+             }catch (Exception $e) {
+            return response()->json(['Exception' => $e->getMessage()], 400);
+            }
+           
         }
 
     }
@@ -157,9 +172,23 @@ class TarefaController extends Controller
 
     }
     public function exportar(){  
-        $tarefas = auth()->user()->tarefas()->get();    
+        $tarefas = auth()->user()->tarefas()->get();  
+        try{  
         $pdf = PDF::loadView('tarefa.pdf', ['tarefas'=>$tarefas]);
         return $pdf->download('lista_tarefas.pdf');
+        }catch (Exception $e) {
+            return response()->json(['Exception' => $e->getMessage()], 400);
+        }
+    }
+    public function verificarAtraso($id_usuario){
+        date_default_timezone_set('America/Sao_Paulo');
+        $tarefas = $this->tarefa->where('user_id', $id_usuario)->get();
+        foreach($tarefas as $tarefa){
+            if ($tarefa->data_limite < date("Y-m-d") &&  $tarefa->late != 1) {
+                $tarefa->late = 1;
+                $tarefa->save();
+            }
+        }
     }
 
 }
