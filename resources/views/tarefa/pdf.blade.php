@@ -32,9 +32,10 @@
                     <tr>
                     <th>Nome</th>
                     <th>Status</th>
+                    <th>Atrasado</th>
+                    <th>Prioridade</th>
                     <th>Data limite</th>
                     <th>Data Conclusão</th>
-                    <th>Prioridade</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,9 +43,11 @@
                     <tr>
                     <td>{{$tarefa->name}}</td>
                     <td>{{$tarefa->status == 1 ?'Concluida':'Pendente'}}</td>
+                    <td>{{$tarefa->late == 1 ?'Sim':'Não'}}</td>
+                    <td>{{$tarefa->level == 1 ?'Alta':'Baixa'}}</td>
                     <td>{{date('d/m/Y', strtotime($tarefa->data_limite))}}</td>
                     <td>{{$tarefa->data_conclusao ? date('d/m/Y', strtotime($tarefa->data_conclusao)) : '' }}</td>
-                    <td>{{$tarefa->level == 1 ?'Alta':'Baixa'}}</td>
+                  
                     <tr>
                 @endforeach
                 </tbody>

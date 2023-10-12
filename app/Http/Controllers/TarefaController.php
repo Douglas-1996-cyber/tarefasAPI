@@ -25,8 +25,7 @@ class TarefaController extends Controller
      */
     public function index(Request $request)
     {
-     
-       $id_usuario = auth()->user()->id;
+      $id_usuario = auth()->user()->id;
        $this->verificarAtraso($id_usuario);
  
         if ($request->search == null) {
@@ -187,12 +186,13 @@ class TarefaController extends Controller
         date_default_timezone_set('America/Sao_Paulo');
         $tarefas = $this->tarefa->where('user_id', $id_usuario)->get();
         foreach($tarefas as $tarefa){
-            if ($tarefa->data_limite < date("Y-m-d") &&  $tarefa->late != 1) {
+            if ($tarefa->data_limite < date("Y-m-d") &&  $tarefa->late != 1 && $tarefa->status != 1) {
                 $tarefa->late = 1;
                 $tarefa->save();
-            }else if($tarefa->data_limite >= date("Y-m-d") &&  $tarefa->late == 1){
+            }else if($tarefa->data_limite >= date("Y-m-d") &&  $tarefa->late == 1 && $tarefa->status == 1 ){
                 $tarefa->late = 0;
                 $tarefa->save();
+            
             }
 
         }
