@@ -27,7 +27,7 @@ class TarefaController extends Controller
     {
       $id_usuario = auth()->user()->id;
        $this->verificarAtraso($id_usuario);
- 
+
         if ($request->search == null) {
             $tarefas = $this->tarefa->where('user_id', $id_usuario);
       
@@ -196,6 +196,9 @@ class TarefaController extends Controller
             }
 
         }
+    }
+    public function enviarEmail(){
+     dd($this->tarefa);
     }
 
 }
