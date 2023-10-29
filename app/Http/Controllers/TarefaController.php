@@ -186,10 +186,10 @@ class TarefaController extends Controller
         date_default_timezone_set('America/Sao_Paulo');
         $tarefas = $this->tarefa->where('user_id', $id_usuario)->get();
         foreach($tarefas as $tarefa){
-            if ($tarefa->data_limite < date("Y-m-d") &&  $tarefa->late != 1 && $tarefa->status != 1) {
+            if ($tarefa->data_limite < date("Y-m-d") &&  $tarefa->late == 0 && $tarefa->status == 0) {
                 $tarefa->late = 1;
                 $tarefa->save();
-            }else if($tarefa->data_limite >= date("Y-m-d") &&  $tarefa->late == 1 && $tarefa->status == 1 ){
+            }else if($tarefa->data_limite >= date("Y-m-d") &&  $tarefa->late == 1){
                 $tarefa->late = 0;
                 $tarefa->save();
             
