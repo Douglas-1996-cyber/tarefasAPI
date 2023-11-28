@@ -180,7 +180,7 @@ class TarefaController extends Controller
         return $pdf->download('lista_tarefas.pdf');
         }catch (Exception $e) {
             return response()->json(['Exception' => $e->getMessage()], 400);
-        }
+        } 
     }
     public function verificarAtraso($id_usuario){
         date_default_timezone_set('America/Sao_Paulo');

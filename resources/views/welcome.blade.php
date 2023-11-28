@@ -1,11 +1,3 @@
-       <!---<h1>Page 1</h1>
-
-             @if($tarefa->count()>=15)
-            <div class="page-break"></div>
-            <h1>Page 2</h1>
-             @endif
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
